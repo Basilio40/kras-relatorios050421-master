@@ -1,0 +1,250 @@
+{% load static %}
+<html>
+    <head>
+        <title>Compra {{compra.id}}</title>
+        <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+            body{
+                font-family: 'Open Sans', sans-serif;
+                height: 842px;
+                width: 720px;
+                /* to centre page on screen*/
+                margin-left: auto;
+                margin-right: auto;
+                color-adjust:exact;
+            }
+            .header{
+                width: 100%;
+            }
+            th, td{
+              border: 1px solid #ccc;
+            }
+            .header .in-td{
+                vertical-align: middle;
+                margin: 0;
+                text-align: center;
+                border-collapse: collapse;
+            }
+            .header .in-td img{
+                max-width: 100%;
+            }
+            .header td h4{
+                text-decoration: none;
+                font-weight: normal;
+                margin-top: -10px;
+                padding: 0;
+            }
+
+            .info-compra{
+                font-size: 10pt;
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .info-compra td{
+                width: 50%;
+                padding: 2px;
+                border: 1px solid #000 !important;
+            }
+            .info-compra .fundo{
+                background-color: #ccc;
+                font-weight: bold;
+            }
+
+            .info-partes{
+                margin-top: 10px;
+                width: 100%;
+                font-size: 10pt;
+            }
+
+            .no-border td{
+                border: none !important;
+            }
+            .blue{
+                background-color: #001f5e;
+                color: #fff;
+                font-weight: bold;
+            }
+            .color-blue{
+                color: #001f5e;
+            }
+
+            .info-produtos{
+                margin-top: 30px;
+                width: 100%;
+                font-size: 10pt;
+                border-collapse: collapse;
+                
+            }
+            .info-produtos th{
+                background-color: #ccc;
+                font-weight: bold;
+                border: 1px solid #fff;
+            }
+            .footer{
+                width: 100%;
+                border: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <table class="header">
+                <tr>
+                    <td class="in-td" style="width: 20%;"><img src="{%static 'kras_logo.png'%}">
+                    <td class="in-td" style="width: 30%;"><h3>PEDIDO DE COMPRA</h3><h4>PURCHASE ORDER</h4></td>
+                    <td class="in-td">
+                        <table class="info-compra">
+                            <tr>
+                                <td class="fundo">PC Nº</td>
+                                <td>{{compra.PC}}</td>
+                            </tr>
+                            <tr>
+                                <td class="fundo">PC IT</td>
+                                <td>{{compra.PC_IT}}</td>
+                            </tr>
+                            <tr>
+                                <td class="fundo">Status PC</td>
+                                <td>{{compra.status_pc}}</td>
+                            </tr>
+                            <tr>
+                                <td class="fundo">Data</td>
+                                <td>{{compra.Data}}</td>
+                            </tr>
+                            <tr>
+                                <td class="fundo">Fornecedor</td>
+                                <td>{{compra.fornecedor.nome}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="info-partes">
+                <tr class="no-border">
+                    <td style="width: 40%;">De / From:</td>
+                    <td>Para / To:</td>
+                </tr>
+                <tr class="blue">
+                    <td>Kras Engenharia, Consultoria e Inspeção Ltda</td>
+                    <td>{{compra.fornecedor.nome}}</td>
+                </tr>
+                <tr>
+                    <td class="color-blue">
+                        Rua Clóvis Soares, 200 - Torre Japão, Sala 201 -  Alvinópolis<br>
+                        CEP: 12942-560 - Atibaia-SP<br>
+                        CNPJ: 21.592.185/0001-40<br>
+                        Telefone: (011) 4260-0138<br>
+                        E-mail: kras@krasengenharia.com.br<br>
+                        Site: www.krasinspecao.com.br
+                    </td>
+                    <td>
+                        <table class="info-compra">
+                            <tr>
+                                <td class="fundo">Código</td>
+                                <td>F{{compra.fornecedor.id}}</td>
+                            </tr>
+                            <tr>
+                                <td class="fundo">Email</td>
+                                <td>{{compra.fornecedor.email}}</td>
+                            </tr>
+                            <tr>
+                                <td class="fundo">CNPJ</td>
+                                <td>{{compra.fornecedor.cnpj}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="fundo">Telefone</td>
+                                <td>{{compra.fornecedor.telefone}}</td>
+                            </tr>
+                            <tr>
+                                <td class="fundo">Endereço</td>
+                                <td>{{compra.fornecedor.rua}} {{compra.fornecedor.numero}} - {{compra.fornecedor.cidade}} - {{compra.fornecedor.estado}}</td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="info-produtos">
+                <tr class="no-border">
+                    <th>#</th>
+                    <th>Produto ou Serviço</th>
+                    <th>Unidade</th>
+                    <th>Detalhamento</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                </tr>
+                {% for item in itens %}
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.descricao}}</td>
+                    <td>{{item.unidade}}</td>
+                    <td>{{item.detalhamento}}</td>
+                    <td>{{item.quantidade}}</td>
+                    <td>{{item.valor}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <table class="info-produtos">
+                <tr>
+                    <th>Observações</th>
+                </tr>
+                <tr>
+                    <td style="min-height: 300px;">
+                        {{compra.observacoes}}
+                    </td>
+                </tr>
+            </table>
+
+            <table class="footer">
+                <tr>
+                    <td style="width: 50%;  border: 0;">
+                        <table class="info-produtos">
+                            <tr>
+                                <th colspan="2">Legenda</th>
+                            </tr>
+                            <tr>
+                                <th>PC</th>
+                                <td>Pedido Geral de Compra</td>
+                            </tr>
+                            <tr>
+                                <th>IT</th>
+                                <td>Item</td>
+                            </tr>
+                        </table>
+
+                        <table class="info-produtos">
+                            <tr>
+                                <td class="blue">Condição de pagamento</td>
+                                <td>{{compra.get_condicao_de_pagamento_display}}</td>
+                            </tr>
+                            <tr>
+                                <td class="blue">Método de pagamento</td>
+                                <td>{{compra.get_metodo_de_pagamento_display}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="border: 0;padding-left: 50px;">
+                        <table class="info-produtos">
+                            <tr>
+                                <th>SUBTOTAL</th>
+                                <td>{{subtotal}}</td>
+                            </tr>
+                            <tr>
+                                <th>IMPOSTOS</th>
+                                <td>{{impostos}}</td>
+                            </tr>
+                            <tr>
+                                <td class="blue" style="text-align: center;">TOTAL</td>
+                                <td>{{total}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </div>
+            </table>
+
+        </div>
+    </body>
+</html>

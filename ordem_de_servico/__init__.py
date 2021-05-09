@@ -1,0 +1,1 @@
+default_app_config = 'ordem_de_servico.apps.OrdemDeServicoConfig'
